@@ -2,7 +2,7 @@ require_relative "bot_functions"
 require "discordrb"
 
 
-bot = Discordrb::Bot.new token: "NTI0MDI0MDAzNjIzMzg3MTU3.Dv5Qeg.89IleoCK0ypcl5dCisax80RCa50"
+bot = Discordrb::Bot.new token: "lmao"
 
 #servername,karma_amount,message,channelfeatured
 
