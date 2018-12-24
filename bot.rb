@@ -2,7 +2,7 @@ require_relative "bot_functions"
 require "discordrb"
 
 
-bot = Discordrb::Bot.new token: "NTI0MDI0MDAzNjIzMzg3MTU3.Dv5Qeg.89IleoCK0ypcl5dCisax80RCa50"
+bot = Discordrb::Bot.new token: "LMAO"
 
 #servername,karma_amount,message,channelfeatured
 
@@ -24,11 +24,13 @@ bot.message(starts_with: "??featuredmessage") do |event|
 
 end
 
-bot.message()
+bot.message(starts_with: "??resetkarma") do |event|
+  write_user_default(event.server.members)
+end
 
 bot.reaction_add(emoji: "👍") do |event|
   #event.user.username
-  message = feature_announcments_message(event.message.content,526029094564003841,5,event.user.username)
+  message = feature_announcments_message(event.message.content,526029094564003841,5,event.message.username)
   bot.send_message(526029094564003841,message)
 end
 

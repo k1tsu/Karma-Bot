@@ -54,30 +54,6 @@ end
     return new_array
 end
 
-
-def get_karma(username)
-  lines = array_chomp(File.readlines("karma_user.txt"))
-  lines.each do |user|
-    user_ = user.split(":")[0]
-    karma = user.split(":")[1]
-    index = lines.index(user)
-    if user_ == username
-      return user_,karma.to_i,index
-    end
-  end
-end
-
-def change_karma(username,new_karma)
-  attributes = get_karma(username)
-  lines = File.readlines(KARMA_DIR)
-  lines[attributes[2]] = "#{username}:#{new_karma}\n"
-  File.open(KARMA_DIR,'w') {|file| file.write(lines.join)}
-end
-
-def plus_karma(username)
-  attributes = get_karma(username)
-  change_karma(username,attributes[1] + 1)
-end
 #526029094564003841
 
 def feature_announcments_message(message_contents,desired_channel,karma_amount,user)
@@ -97,12 +73,15 @@ end
 
 def settings(servername,karma_amount,message,channelfeatured)
   file_attr = file_index("settings.txt","#{servername}")
+  puts file_attr
   index = file_attr[0]
   lines = file_attr[1]
   setting_string = "#{servername},#{karma_amount},#{message},#{channelfeatured}"
   lines[index] = setting_string
   File.open("settings.txt","w") {|file| file.puts lines}
   end
+
+settings(nil,nil,nil,nil)
 
 
 
