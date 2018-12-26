@@ -1,37 +1,29 @@
-require_relative "bot_functions"
+
+require_relative "karma_system"
 require "discordrb"
 
-
-bot = Discordrb::Bot.new token: "LMAO"
-
-#servername,karma_amount,message,channelfeatured
+bot = Discordrb::Bot.new token: "-"
 
 bot.message() do |event|
-  write_cache(event.message.id)
-  event.message.create_reaction("👍")
+
+
+bot.message(contains: "!karma view") do |event|
+  message = karma_message()
+  event.respond(message)
 end
 
-bot.message(starts_with: "??channelfeatured") do |event|
-  settings(event.server.name,nil,nil,event.message.content.split(" ")[0].to_i)
-end
 
-bot.message(starts_with: "??karmaamount") do |event|
-  print event.message.content.split(" ")[1].to_i
-end
-
-bot.message(starts_with: "??featuredmessage") do |event|
-  # settings(event.message.content.split(" ")[1]
-
-end
-
-bot.message(starts_with: "??resetkarma") do |event|
-  write_user_default(event.server.members)
+bot.message(contains: "!karma reset") do |event|
+  event.send_temporary_message("Resetting Karma Values...",10)
+  userlist = []
+  event.server.members.each do |user|
+    userlist << user.display_name
+  end
+  karma_default(userlist)
 end
 
 bot.reaction_add(emoji: "👍") do |event|
-  #event.user.username
-  message = feature_announcments_message(event.message.content,526029094564003841,5,event.message.username)
-  bot.send_message(526029094564003841,message)
+  plus_karma(event.user.username)
 end
 
 

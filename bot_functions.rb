@@ -1,3 +1,4 @@
+require "discordrb"
 KARMA_DIR = "karma_user.txt"
 
 
@@ -52,44 +53,4 @@ end
      new_array.push linenew
    end
     return new_array
-end
-
-#526029094564003841
-
-def feature_announcments_message(message_contents,desired_channel,karma_amount,user)
-  message = "**✨Featured✨**\n   `#{message_contents}`\n   Sent by **#{user}**\n   **#{karma_amount}** Upvotes"
-  return message
-end
-
-def file_index(file_name,include)
-  lines = File.readlines(file_name)
-  lines.each do |line|
-    if line.include? include
-      index = lines.index(line)
-    end
-    return index,lines
-  end
-end
-
-def settings(servername,karma_amount,message,channelfeatured)
-  file_attr = file_index("settings.txt","#{servername}")
-  puts file_attr
-  index = file_attr[0]
-  lines = file_attr[1]
-  setting_string = "#{servername},#{karma_amount},#{message},#{channelfeatured}"
-  lines[index] = setting_string
-  File.open("settings.txt","w") {|file| file.puts lines}
-  end
-
-settings(nil,nil,nil,nil)
-
-
-
-
-
-
-
-
-def change_channel(new_channel)
-
 end
